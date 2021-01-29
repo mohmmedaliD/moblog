@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/cats', App\Http\Controllers\CategoryController::class);
+Route::resource('/tags', App\Http\Controllers\TagController::class);
 
 Route::resource('/blogs', App\Http\Controllers\BlogController::class);
 

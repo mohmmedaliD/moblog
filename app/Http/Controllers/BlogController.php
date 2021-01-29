@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Tag;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\BlogRequest;
@@ -38,7 +39,8 @@ class BlogController extends Controller
     {
         return view('blogs.create', [
             'pName' => 'create a new blog',
-            'cats' => Category::all()
+            'cats' => Category::all(),
+            'tags' => Tag::all()
         ]);
     }
 
@@ -50,13 +52,14 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
-        Blog::create([
+        $b = Blog::create([
             "title" => $request->title,
             "desc" => $request->desc,
             "content" => $request->content,
             "img" => $request->img->store('images', 'public'),
             "category_id" => $request->category_id
         ]);
+        $b->tags()->attach($request->tags);
         session()->flash('success', 'blog created successfully');
         return redirect(route('home'));
     }
@@ -85,7 +88,8 @@ class BlogController extends Controller
         return view('blogs.create', [
             'pName' => 'edit blog',
             'blog' => Blog::find($id),
-            'cats' => Category::all()
+            'cats' => Category::all(),
+            'tags' => Tag::all()
         ]);
     }
 
@@ -104,6 +108,7 @@ class BlogController extends Controller
             Storage::disk('public')->delete($blog->img);
             $data['img'] = $img;
         }
+        $blog->tags()->sync($request->tags);
         $blog->update($data);
         session()->flash('success', 'blog updated successfully');
         return redirect(route('home'));
@@ -122,6 +127,7 @@ class BlogController extends Controller
             if ((str_starts_with($blog->img, 'images'))) {
               Storage::disk('public')->delete($blog->img);
             }
+            $blog->tags()->detach();
             $blog->forceDelete();
             session()->flash('success', 'blog deleted successfully');
         } else {
