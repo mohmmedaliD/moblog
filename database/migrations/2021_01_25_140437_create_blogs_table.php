@@ -20,6 +20,7 @@ class CreateBlogsTable extends Migration
             $table->text('content');
             $table->string('img');
             $table->integer('category_id');
+            $table->integer('user_id');
             $table->softDeletes();
             $table->timestamps();
         });

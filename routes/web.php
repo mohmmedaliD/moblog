@@ -20,6 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
+Route::get('/user_profile/{id}', [App\Http\Controllers\UsersController::class, 'show'])->name('user');
 
 Route::resource('/cats', App\Http\Controllers\CategoryController::class);
 Route::resource('/tags', App\Http\Controllers\TagController::class);

@@ -132,6 +132,9 @@
                         <li class="list-group-item">
                             <a href="/admin/blogs/trashed">trashed</a>
                         </li>
+                        <li class="list-group-item">
+                            <a href="/users">users</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-md-8">

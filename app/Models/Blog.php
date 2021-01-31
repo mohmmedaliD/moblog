@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\User;
 
 class Blog extends Model
 {
@@ -16,6 +17,10 @@ class Blog extends Model
 
     public function cat () {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user () {
+        return $this->belongsTo(User::class);
     }
 
      public function tags () {

@@ -26,7 +26,8 @@ class BlogFactory extends Factory
             'desc' => $this->faker->text($this->faker->numberBetween(200,250)),
             'content' => $this->faker->text(1000),
             'category_id' => rand(1,10),
-            'img' => $this->faker->imageUrl($width = 640, $height = 480)
+            'img' => $this->faker->imageUrl($width = 640, $height = 480),
+            'user_id' => $this->faker->numberBetween(11,12)
         ];
     }
 }
