@@ -52,15 +52,14 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
-        $b = Blog::create([
-            "title" => $request->title,
-            "desc" => $request->desc,
-            "content" => $request->content,
-            "img" => $request->img->store('images', 'public'),
-            "category_id" => $request->category_id
-        ]);
-        $b->tags()->attach($request->tags);
-        session()->flash('success', 'blog created successfully');
+        $data = $request->only(['title', 'desc', 'content', 'category_id']);
+        if($request->has('img')) {
+            $img = $request->img->store('images', 'public');
+            $data['img'] = $img;
+        }
+        $data['user_id'] = 1;
+        Blog::create($data);
+        session()->flash('success', 'blog added successfully');
         return redirect(route('home'));
     }
 

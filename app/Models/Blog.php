@@ -13,7 +13,7 @@ class Blog extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['title', 'desc', 'content', 'img', 'category_id'];
+    protected $fillable = ['title', 'desc', 'content', 'img', 'category_id', 'user_id'];
 
     public function cat () {
         return $this->belongsTo(Category::class);
